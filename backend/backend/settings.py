@@ -158,7 +158,7 @@ CSRF_TRUSTED_ORIGINS = [
     'https://your-custom-domain.com',
 ]
 ALLOWED_HOSTS = [
-    'instituteManagement.onrender.com',
+    'instituteManagement-2.onrender.com',
     'your-custom-domain.com',
 ]
 STATIC_URL = 'static/'
