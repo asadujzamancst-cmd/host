@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface NewStudent {
   student_id: string;
@@ -15,6 +16,8 @@ interface NewStudent {
 }
 
 export default function AddStudentForm() {
+  const router = useRouter();
+  const [teacher, setTeacher] = useState<any>(null);
   const [formData, setFormData] = useState<NewStudent>({
     student_id: '',
     name: '',
@@ -30,6 +33,21 @@ export default function AddStudentForm() {
   const [success, setSuccess] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  // ✅ Check if teacher is logged in
+  useEffect(() => {
+    const storedTeacher = localStorage.getItem('teacher');
+    if (!storedTeacher) {
+      router.push('/loginTeacher');
+    } else {
+      setTeacher(JSON.parse(storedTeacher));
+    }
+  }, [router]);
+
+  if (!teacher) {
+    return <p className="text-center mt-10 text-gray-500">Loading dashboard...</p>;
+  }
+
+  // ✅ Handle form input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, files } = e.target;
     if (name === 'img' && files) {
@@ -39,6 +57,7 @@ export default function AddStudentForm() {
     }
   };
 
+  // ✅ Handle form submit
   const handleSubmit = async () => {
     setSuccess(null);
     setError(null);
@@ -53,9 +72,7 @@ export default function AddStudentForm() {
       data.append('email', formData.email);
       data.append('college', formData.college);
       data.append('password', formData.password);
-      if (formData.img) {
-        data.append('img', formData.img);
-      }
+      if (formData.img) data.append('img', formData.img);
 
       const res = await fetch('http://127.0.0.1:8000/payment/students/', {
         method: 'POST',
@@ -114,12 +131,9 @@ export default function AddStudentForm() {
           />
         ))}
 
-        {/* Image file input with small optional label and border */}
+        {/* Image Upload */}
         <div className="flex flex-col">
-          <label
-            htmlFor="img"
-            className="text-sm text-gray-500 mb-1 dark:text-gray-400"
-          >
+          <label htmlFor="img" className="text-sm text-gray-500 mb-1 dark:text-gray-400">
             Profile Image (optional)
           </label>
           <input

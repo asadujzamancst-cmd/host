@@ -1,6 +1,6 @@
 'use client';
-
-import React, { useState, useRef } from 'react';
+import { useRouter } from 'next/navigation';
+import React, { useState,useEffect, useRef } from 'react';
 
 interface Student {
   id: number;
@@ -29,6 +29,9 @@ export default function PaymentTable() {
   const [queryPassword, setQueryPassword] = useState('');
   const [filteredPayments, setFilteredPayments] = useState<Payment[]>([]);
   const tableRef = useRef<HTMLTableElement>(null);
+ 
+
+  
 
   const handleSearch = async () => {
     const id = queryId.trim();

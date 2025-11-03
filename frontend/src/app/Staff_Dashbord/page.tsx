@@ -68,6 +68,79 @@ export default function TeacherDashboard() {
           <h2 className="text-xl font-bold mb-2">ATTENDANCE MANAGEMENT</h2>
           <p className="text-gray-600">Manage staff-related tasks here</p>
         </div>
+
+                <div
+          className="cursor-pointer border border-red-500 hover:text-sky-700 hover:border-sky-700 p-6 rounded-2xl shadow-lg text-center transition-transform hover:scale-105"
+          onClick={() => router.push('/Staff_Dashbord/card5')}
+        >
+          <h2 className="text-xl font-bold mb-2">Exam MANAGEMENT</h2>
+          <p className="text-gray-600">Manage staff-related tasks here</p>
+        </div>
+
+
+
+                <div
+          className="cursor-pointer border border-red-500 hover:text-sky-700 hover:border-sky-700 p-6 rounded-2xl shadow-lg text-center transition-transform hover:scale-105"
+          onClick={() => router.push('/Staff_Dashbord/card6')}
+        >
+          <h2 className="text-xl font-bold mb-2">LIbrary MANAGEMENT</h2>
+          <p className="text-gray-600">Manage staff-related tasks here</p>
+        </div>
+
+
+                <div
+          className="cursor-pointer border border-red-500 hover:text-sky-700 hover:border-sky-700 p-6 rounded-2xl shadow-lg text-center transition-transform hover:scale-105"
+          onClick={() => router.push('/Staff_Dashbord/card7')}
+        >
+          <h2 className="text-xl font-bold mb-2">notice MANAGEMENT</h2>
+          <p className="text-gray-600">Manage staff-related tasks here</p>
+        </div>
+
+
+                <div
+          className="cursor-pointer border border-red-500 hover:text-sky-700 hover:border-sky-700 p-6 rounded-2xl shadow-lg text-center transition-transform hover:scale-105"
+          onClick={() => router.push('/Staff_Dashbord/card8')}
+        >
+          <h2 className="text-xl font-bold mb-2">holiday MANAGEMENT</h2>
+          <p className="text-gray-600">Manage staff-related tasks here</p>
+        </div>
+
+
+                <div
+          className="cursor-pointer border border-red-500 hover:text-sky-700 hover:border-sky-700 p-6 rounded-2xl shadow-lg text-center transition-transform hover:scale-105"
+          onClick={() => router.push('/Staff_Dashbord/card9')}
+        >
+          <h2 className="text-xl font-bold mb-2">Result MANAGEMENT</h2>
+          <p className="text-gray-600">Manage staff-related tasks here</p>
+        </div>
+
+        
+
+                <div
+          className="cursor-pointer border border-red-500 hover:text-sky-700 hover:border-sky-700 p-6 rounded-2xl shadow-lg text-center transition-transform hover:scale-105"
+          onClick={() => router.push('/Staff_Dashbord/card10')}
+        >
+          <h2 className="text-xl font-bold mb-2">Event MANAGEMENT</h2>
+          <p className="text-gray-600">Manage staff-related tasks here</p>
+        </div>
+
+
+
+                <div
+          className="cursor-pointer border border-red-500 hover:text-sky-700 hover:border-sky-700 p-6 rounded-2xl shadow-lg text-center transition-transform hover:scale-105"
+          onClick={() => router.push('/Staff_Dashbord/card4')}
+        >
+          <h2 className="text-xl font-bold mb-2">ATTENDANCE MANAGEMENT</h2>
+          <p className="text-gray-600">Manage staff-related tasks here</p>
+        </div>
+
+                <div
+          className="cursor-pointer border border-red-500 hover:text-sky-700 hover:border-sky-700 p-6 rounded-2xl shadow-lg text-center transition-transform hover:scale-105"
+          onClick={() => router.push('/Staff_Dashbord/card4')}
+        >
+          <h2 className="text-xl font-bold mb-2">ATTENDANCE MANAGEMENT</h2>
+          <p className="text-gray-600">Manage staff-related tasks here</p>
+        </div>
       </div>
     </div>
   )

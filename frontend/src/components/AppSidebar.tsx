@@ -59,11 +59,7 @@ const items = [
     ],
   },
 
-  {
-    title: "Students",
-    icon: User,
-    link: "/students" , 
-  },
+
   {
     title: "Courses",
     icon: BookOpen,
@@ -73,13 +69,7 @@ const items = [
       
     ],
   },
-  {
-    title: "Attendance",
-    icon: CalendarCheck,
-     link: "/attendence" ,
-      
-    
-  },
+
   {
     title: "Exams",
     icon: FileText,
@@ -88,15 +78,7 @@ const items = [
       { label: "Exam", link: "/exams/give" },
     ],
   },
-  {
-    title: "Payments",
-    icon: CreditCard,
-    subItems: [
-      { label: "All Transactions", link: "/payment" },
-      
-      
-    ],
-  },
+
   {
     title: "Results",
     icon: BarChart,
@@ -131,7 +113,13 @@ const items = [
   {
     title: "Dashboard",
     icon: Settings,
-    link: "/Dashbord",
+        subItems: [
+      { label: "Admin", link: "/Dashbord" },
+      { label: "staff", link: "/Staff_Dashbord" },
+      { label: "Student", link: "/students" },
+      
+      
+    ],
   }
 ];
 

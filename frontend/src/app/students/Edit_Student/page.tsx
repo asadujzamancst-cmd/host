@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 interface Student {
@@ -20,11 +21,16 @@ export default function StudentListPage() {
   const [filteredStudents, setFilteredStudents] = useState<Student[]>([]);
   const [editingStudent, setEditingStudent] = useState<Student | null>(null);
   const [formData, setFormData] = useState<FormData | null>(null);
+  const [teacher, setTeacher] = useState<any>(null);
 
   const [filterId, setFilterId] = useState("");
   const [filterPhone, setFilterPhone] = useState("");
   const [filterDept, setFilterDept] = useState("");
+  const router = useRouter();
 
+ 
+
+  // ✅ Fetch students
   const fetchStudents = async () => {
     try {
       const res = await fetch("http://127.0.0.1:8000/payment/students/");
@@ -40,6 +46,7 @@ export default function StudentListPage() {
     fetchStudents();
   }, []);
 
+  // ✅ Filter function
   const handleFilter = () => {
     let filtered = students;
 
@@ -61,6 +68,7 @@ export default function StudentListPage() {
     setFilteredStudents(filtered);
   };
 
+  // ✅ Delete
   const handleDelete = async (id: number) => {
     if (!confirm("Are you sure you want to delete this student?")) return;
     try {
@@ -77,6 +85,7 @@ export default function StudentListPage() {
     }
   };
 
+  // ✅ Edit setup
   const handleEditClick = (student: Student) => {
     setEditingStudent(student);
 
@@ -89,10 +98,10 @@ export default function StudentListPage() {
     data.set("email", student.email);
     data.set("college", student.college);
     data.set("password", student.password);
-
     setFormData(data);
   };
 
+  // ✅ Input changes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!formData) return;
 
@@ -110,15 +119,19 @@ export default function StudentListPage() {
     setFormData(newFormData);
   };
 
+  // ✅ Update
   const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingStudent || !formData) return;
 
     try {
-      const res = await fetch(`http://127.0.0.1:8000/payment/students/${editingStudent.id}/`, {
-        method: "PUT",
-        body: formData,
-      });
+      const res = await fetch(
+        `http://127.0.0.1:8000/payment/students/${editingStudent.id}/`,
+        {
+          method: "PUT",
+          body: formData,
+        }
+      );
 
       if (res.ok) {
         setEditingStudent(null);
@@ -131,12 +144,24 @@ export default function StudentListPage() {
       console.error("Update error", error);
     }
   };
+   // ✅ Check if teacher is logged in
+useEffect(() => {
+  const storedTeacher = localStorage.getItem("teacher");
+  if (!storedTeacher) {
+    router.push("/loginTeacher");
+  } else {
+    setTeacher(JSON.parse(storedTeacher));
+  }
+}, [router]);
+
+// Then inside return()
+
 
   return (
     <div className="max-w-7xl mt-20 mx-auto p-6">
       <h1 className="text-3xl font-bold text-center mb-6">Student Management</h1>
 
-      {/* Filter controls */}
+      {/* Filter Controls */}
       <div className="flex flex-wrap gap-2 mb-6">
         <input
           type="text"
@@ -167,100 +192,34 @@ export default function StudentListPage() {
         </button>
       </div>
 
+      {/* Edit Form */}
       {editingStudent && formData && (
         <form
           onSubmit={handleUpdate}
           className="mb-10 border p-4 rounded bg-gray-50 dark:bg-gray-800"
         >
           <h2 className="text-xl font-semibold mb-4 text-center">Update Student</h2>
-
-          <div className="mb-3">
-            <label className="block font-medium mb-1">Student ID</label>
-            <input
-              name="student_id"
-              defaultValue={editingStudent.student_id}
-              onChange={handleInputChange}
-              className="w-full p-2 border rounded"
-              type="text"
-            />
-          </div>
-
-          <div className="mb-3">
-            <label className="block font-medium mb-1">Name</label>
-            <input
-              name="name"
-              defaultValue={editingStudent.name}
-              onChange={handleInputChange}
-              className="w-full p-2 border rounded"
-              type="text"
-            />
-          </div>
-
-          <div className="mb-3">
-            <label className="block font-medium mb-1">Phone Number</label>
-            <input
-              name="Phone_number"
-              defaultValue={editingStudent.Phone_number.toString()}
-              onChange={handleInputChange}
-              className="w-full p-2 border rounded"
-              type="text"
-            />
-          </div>
-
-          <div className="mb-3">
-            <label className="block font-medium mb-1">Department</label>
-            <input
-              name="department"
-              defaultValue={editingStudent.department}
-              onChange={handleInputChange}
-              className="w-full p-2 border rounded"
-              type="text"
-            />
-          </div>
-
-          <div className="mb-3">
-            <label className="block font-medium mb-1">Year</label>
-            <input
-              name="year"
-              defaultValue={editingStudent.year.toString()}
-              onChange={handleInputChange}
-              className="w-full p-2 border rounded"
-              type="number"
-            />
-          </div>
-
-          <div className="mb-3">
-            <label className="block font-medium mb-1">Email</label>
-            <input
-              name="email"
-              defaultValue={editingStudent.email}
-              onChange={handleInputChange}
-              className="w-full p-2 border rounded"
-              type="email"
-            />
-          </div>
-
-          <div className="mb-3">
-            <label className="block font-medium mb-1">College</label>
-            <input
-              name="college"
-              defaultValue={editingStudent.college}
-              onChange={handleInputChange}
-              className="w-full p-2 border rounded"
-              type="text"
-            />
-          </div>
-
-          <div className="mb-3">
-            <label className="block font-medium mb-1">Password</label>
-            <input
-              name="password"
-              defaultValue={editingStudent.password}
-              onChange={handleInputChange}
-              className="w-full p-2 border rounded"
-              type="text"
-            />
-          </div>
+          {[
+            { label: "Student ID", name: "student_id", type: "text" },
+            { label: "Name", name: "name", type: "text" },
+            { label: "Phone Number", name: "Phone_number", type: "text" },
+            { label: "Department", name: "department", type: "text" },
+            { label: "Year", name: "year", type: "number" },
+            { label: "Email", name: "email", type: "email" },
+            { label: "College", name: "college", type: "text" },
+            { label: "Password", name: "password", type: "text" },
+          ].map((field) => (
+            <div key={field.name} className="mb-3">
+              <label className="block font-medium mb-1">{field.label}</label>
+              <input
+                name={field.name}
+                defaultValue={(editingStudent as any)[field.name]}
+                onChange={handleInputChange}
+                className="w-full p-2 border rounded"
+                type={field.type}
+              />
+            </div>
+          ))}
 
           <div className="mb-3">
             <label className="block font-medium mb-1">Profile Image (optional)</label>
@@ -286,6 +245,7 @@ export default function StudentListPage() {
         </form>
       )}
 
+      {/* Student Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filteredStudents.map((student) => (
           <div key={student.id} className="border rounded p-4 shadow bg-white dark:bg-gray-900">

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-
+import Link from 'next/link';
 
 interface Student {
   id: number;
@@ -40,6 +40,8 @@ export default function StudentPortal() {
   const [modalImageUrl, setModalImageUrl] = useState<string | null>(null);
 
   const router = useRouter();
+    // ✅ Check if teacher is logged in
+
 
   useEffect(() => {
     fetch(`${API_BASE_URL}/payment/students/`)
@@ -178,6 +180,13 @@ export default function StudentPortal() {
               className="px-3 py-2 border rounded dark:bg-gray-800"
             />
           </div>
+                <div className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                <Link href="/attendence "className="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-blue-600" >
+          attendence record
+        </Link>
+         <Link href="/payment " className="mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-blue-600"> payment record</Link>
+
+      </div>
 
           {/* Attendance summary */}
           <div className="mt-4 text-left">
@@ -245,6 +254,7 @@ export default function StudentPortal() {
           </div>
         </div>
       )}
+
     </div>
   );
 }

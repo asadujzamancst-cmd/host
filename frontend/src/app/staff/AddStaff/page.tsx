@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface Teacher {
   teacher_id: number;
@@ -27,6 +28,7 @@ export default function TeacherPage() {
   const [editingTeacher, setEditingTeacher] = useState<Teacher | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const router = useRouter();
 
   useEffect(() => {
     fetchTeachers();
@@ -133,6 +135,16 @@ export default function TeacherPage() {
     setDetails(teacher.details);
     setImage(null);
   };
+    useEffect(() => {
+    const token = localStorage.getItem("access_token");
+    if (!token) {
+      // ✅ যদি টোকেন না থাকে → login এ পাঠাবে
+      router.push("/login");
+    } else {
+      // ✅ টোকেন থাকলে loading false → dashboard দেখাবে
+      setLoading(false);
+    }
+  }, []);
 
   return (
     <div className="max-w-6xl mx-auto p-6 bg-white dark:bg-gray-900 rounded shadow mt-10">
