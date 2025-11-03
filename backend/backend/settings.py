@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '12'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 
 
@@ -155,12 +155,10 @@ CORS_ALLOWED_ORIGINS = [
 ]
 CSRF_TRUSTED_ORIGINS = [
     'https://instituteManagement3.onrender.com',
-    'https://your-custom-domain.com',
 ]
-ALLOWED_HOSTS = [
-    'instituteManagement3.onrender.com',
-    'your-custom-domain.com',
-]
+
+ALLOWED_HOSTS = ['institutemanagement3.onrender.com']
+
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
