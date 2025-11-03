@@ -154,11 +154,11 @@ CORS_ALLOWED_ORIGINS = [
     "https://yourdomain.com",
 ]
 CSRF_TRUSTED_ORIGINS = [
-    'https://instituteManagement.onrender.com',
+    'https://instituteManagement3.onrender.com',
     'https://your-custom-domain.com',
 ]
 ALLOWED_HOSTS = [
-    'instituteManagement-2.onrender.com',
+    'instituteManagement3.onrender.com',
     'your-custom-domain.com',
 ]
 STATIC_URL = 'static/'
